@@ -12,5 +12,5 @@ def plot_all(config):
             print(f"Plotting theta [{theta_min},{theta_max}] mode {mode}")
             subprocess.run([
                 "root", "-l", "-b", "-q",
-                f"plot_layers.cxx({theta_min},{theta_max},{mode})"
+                f"analysis/plot_layers.cxx({theta_min},{theta_max},{mode})"
             ], check=True)

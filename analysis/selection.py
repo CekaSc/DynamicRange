@@ -9,26 +9,37 @@ import os
 
 from .simulation import get_sim_output_files
 
-def run_selection(config):
+def get_selection_output_files(config):
     sim = config["simulation"]
     sel = config["selection"]
-    
-    output_files = get_sim_output_files(config)
-    
-    for (theta_min, theta_max), sim_file in zip(sim["theta_bins"], output_files):
-        output_file = (
+    energy_str = sim["energy"].replace("*", "").replace(" ", "")
+    files = []
+    for theta_min, theta_max in sim["theta_bins"]:
+        f = (
             f"{sel['output_dir']}"
             f"/{sim['particle'].replace('-','m').replace('+','p')}"
-            f"_{sim['energy']}"
-            f"_{theta_min}_{theta_max}"
+            f"_{energy_str}"
+            f"_{theta_min}_{theta_max}deg"
             f"_output.root"
         )
-        os.makedirs(sel["output_dir"], exist_ok=True)
+        files.append(f)
+    return files
+
+def run_selection(config):
+    sim = config["simulation"]
+    os.makedirs(config["selection"]["output_dir"], exist_ok=True)
+
+    input_files  = get_sim_output_files(config)
+    output_files = get_selection_output_files(config)
+
+    for (theta_min, theta_max), sim_file, output_file in zip(
+        sim["theta_bins"], input_files, output_files
+    ):
         print(f"Processing {sim_file} -> {output_file}")
         _process_one(
             sim_file=sim_file,
             output_file=output_file,
-            capacitance_file=sel["capacitance_file"],
+            capacitance_file=config["selection"]["capacitance_file"],
         )
 
 def _process_one(sim_file, output_file, capacitance_file):
@@ -78,18 +89,3 @@ def _process_one(sim_file, output_file, capacitance_file):
 
     tree.Write()
     out.Close()
-
-def get_selection_output_files(config):
-    sim = config["simulation"]
-    sel = config["selection"]
-    files = []
-    for theta_min, theta_max in sim["theta_bins"]:
-        f = (
-            f"{sel['output_dir']}"
-            f"/{sim['particle'].replace('-','m').replace('+','p')}"
-            f"_{sim['energy']}"
-            f"_{theta_min}_{theta_max}"
-            f"_output.root"
-        )
-        files.append(f)
-    return files

@@ -8,12 +8,13 @@ void plot_layers(int thetaMin, int thetaMax, int mode) {
 				    //
     //gStyle->SetPadRightMargin(0.07);
     //h_maxE_Layer8_top5
-    string f_name = "rootFiles/Muon_10GeV_";
+    string f_name = "sel_output/mum_10GeV_";
     f_name.append(to_string(thetaMin));
     f_name.append("_");
     f_name.append(to_string(thetaMax));
-    f_name.append("_output.root");
+    f_name.append("deg_output.root");
     TFile *f = TFile::Open(f_name.c_str());
+    cout<<f_name<<endl;
     if (!f || f->IsZombie()) return;
 
     TCanvas *c1 = new TCanvas("c1", "Layer Comparison", 800, 600);
@@ -122,7 +123,7 @@ void plot_layers(int thetaMin, int thetaMax, int mode) {
     //sublabel.DrawLatex(leg_left, 0.65, "Simulated Events: 5000");
 
     // 5. Save the result
-    string p_name = "./plots/Muon_10GeV_";
+    string p_name = "plots/Muon_10GeV_";
     p_name.append(to_string(thetaMin));
     p_name.append("_");
     p_name.append(to_string(thetaMax));

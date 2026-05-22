@@ -1,7 +1,7 @@
 simulation:
-  particle: "e-"
-  energy: "180*GeV"
-  n_events: 1000
+  particle: "mu-"
+  energy: "10*GeV"
+  n_events: 5000
   seed: 42
   compact_file: "$K4GEO/FCCee/ALLEGRO/compact/ALLEGRO_o1_v03/ALLEGRO_o1_v03.xml"
   output_dir: "sim_output"
