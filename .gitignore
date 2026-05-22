@@ -1,0 +1,28 @@
+# Output directories
+sim_output/
+sel_output/
+plots/
+ 
+# ROOT files
+*.root
+ 
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+ 
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+ 
+# Environment
+.env
+*.sh.bak
+ 
+# OS
+.DS_Store
+._*
+*~
