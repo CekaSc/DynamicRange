@@ -1,0 +1,28 @@
+simulation:
+  particle: "e-"
+  energy: "180*GeV"
+  n_events: 1000
+  seed: 42
+  compact_file: "$K4GEO/FCCee/ALLEGRO/compact/ALLEGRO_o1_v03/ALLEGRO_o1_v03.xml"
+  output_dir: "sim_output"
+  theta_bins:
+    - [55, 65]
+    - [65, 75]
+    - [75, 85]
+    - [85, 95]
+    - [95, 105]
+    - [105, 115]
+    - [115, 125]
+
+selection:
+  output_dir: "sel_output"
+  capacitance_file: "../capac/capacitances_perSource_ecalBarrelFCCee_theta_update2025.root"
+
+histograms:
+  hv_mode: 2
+  percentage: 100
+  noise_file: "../capac/noise_capa_ecalbarrel/elecNoise_ecalBarrelFCCee_theta.root"
+
+plots:
+  output_dir: "plots"
+  modes: [1, 4, 6, 7]
