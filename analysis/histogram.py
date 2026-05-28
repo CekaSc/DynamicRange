@@ -46,11 +46,14 @@ def _process_one(file_path, tree_name, theta_min, theta_max, hv_mode, noise_file
         sumE_data = df.AsNumpy(columns=[sumE_leaf])
 
         hists = {
-            "maxE":   ROOT.TH1D(f"h_{leaf}",          f"{leaf}",          100, 0, 5),
-            "maxQ":   ROOT.TH1D(f"h_{leaf}_toQ",       f"{leaf} charge",   100, 0, 5*EtoQ),
+            "allE":   ROOT.TH1D(f"h_{leaf}",          f"{leaf}",          100, 0, 5),
+            "allQ":   ROOT.TH1D(f"h_{leaf}_toQ",       f"{leaf} charge",   100, 0, 5*EtoQ),
+            "maxE":   ROOT.TH1D(f"h_maxE_Layer{i}",    f"maxE Layer {i}",  100, 0, 5),
+            "maxQ":   ROOT.TH1D(f"h_maxQ_Layer{i}",    f"maxQ Layer {i}",  100, 0, 5*EtoQ),
             "sumE":   ROOT.TH1D(f"h_{sumE_leaf}",      f"{sumE_leaf}",     100, 0, 15),
             "sumQ":   ROOT.TH1D(f"h_{sumQ_leaf}",      f"{sumQ_leaf}",     100, 0, 15*EtoQ),
             "SNR":    ROOT.TH1D(f"h_SNR_Layer{i}",     f"SNR Layer {i}",   100, 0, 50),
+            "maxSNR": ROOT.TH1D(f"h_maxSNR_Layer{i}",  f"maxSNR Layer {i}",100, 0, 50),
             "sumSNR": ROOT.TH1D(f"h_sumSNR_Layer{i}",  f"sumSNR Layer {i}",100, 0, 50),
         }
 
@@ -60,9 +63,14 @@ def _process_one(file_path, tree_name, theta_min, theta_max, hv_mode, noise_file
             hists["sumSNR"].Fill(val * 1e3 * EtoQ * 6241.5 / (ENC * math.sqrt(3)))
 
         for val_event in top_data[leaf]:
+            if len(val_event) > 0:
+                max_val = max(val_event)
+                hists["maxE"].Fill(max_val * 1e3)
+                hists["maxQ"].Fill(max_val * 1e3 * EtoQ)
+                hists["maxSNR"].Fill(max_val * 1e3 * EtoQ * 6241.5 / ENC)
             for val in val_event:
-                hists["maxE"].Fill(val * 1e3)
-                hists["maxQ"].Fill(val * 1e3 * EtoQ)
+                hists["allE"].Fill(val * 1e3)
+                hists["allQ"].Fill(val * 1e3 * EtoQ)
                 hists["SNR"].Fill(val * 1e3 * EtoQ * 6241.5 / ENC)
 
         f.cd()
