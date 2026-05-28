@@ -53,7 +53,7 @@ def _draw_labels(sim, theta_min, theta_max, leg_left=0.4):
     latex.DrawLatex(leg_left, 0.85, "#font[52]{#bf{ALLEGRO}} Simulation")
     latex.SetTextSize(0.035)
     latex.DrawLatex(leg_left, 0.80, f"Gun particle: {sim['particle']}")
-    latex.DrawLatex(leg_left, 0.75, f"Gun Energy: {sim['energy'].replace("*","")}")
+    latex.DrawLatex(leg_left, 0.75, f"Gun Energy: {sim['energy'].replace("*"," ")}")
     latex.DrawLatex(leg_left, 0.70,
                     f"Gun Theta: [{theta_min}^{{#circ}}, {theta_max}^{{#circ}}]")
 
