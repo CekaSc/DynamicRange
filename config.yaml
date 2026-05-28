@@ -25,4 +25,4 @@ histograms:
 
 plots:
   output_dir: "plots"
-  modes: [1, 4, 6, 7]
+  histograms: ["allE_Layer", "sumE_Layer", "sumSNR_Layer", "SNR_Layer"]

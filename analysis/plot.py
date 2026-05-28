@@ -1,6 +1,6 @@
-import subprocess
 import os
-from .selection import get_selection_output_files
+from .plot_layers import plot_one
+
 
 def plot_all(config):
     sim = config["simulation"]
@@ -8,9 +8,6 @@ def plot_all(config):
     os.makedirs(plot_cfg["output_dir"], exist_ok=True)
 
     for theta_min, theta_max in sim["theta_bins"]:
-        for mode in plot_cfg["modes"]:
-            print(f"Plotting theta [{theta_min},{theta_max}] mode {mode}")
-            subprocess.run([
-                "root", "-l", "-b", "-q",
-                f"analysis/plot_layers.cxx({theta_min},{theta_max},{mode})"
-            ], check=True)
+        for hist_name in plot_cfg["histograms"]:
+            print(f"Plotting theta [{theta_min},{theta_max}] {hist_name}")
+            plot_one(config, theta_min, theta_max, hist_name)
