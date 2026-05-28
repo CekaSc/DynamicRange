@@ -56,7 +56,7 @@ def plot_one(config, theta_min, theta_max, hist_base_name):
             continue
 
         color_idx = ROOT.gStyle.GetColorPalette(
-            layer * (ROOT.gStyle.GetNumberOfColors() / 12.0)
+            int(layer * (ROOT.gStyle.GetNumberOfColors() / 12.0))
         )
         h.SetLineColor(color_idx)
         h.SetLineWidth(2)

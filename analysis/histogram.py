@@ -63,7 +63,7 @@ def _process_one(file_path, tree_name, theta_min, theta_max, hv_mode, noise_file
             hists["sumSNR"].Fill(val * 1e3 * EtoQ * 6241.5 / (ENC * math.sqrt(3)))
 
         for val_event in top_data[leaf]:
-            if val_event.size() > 0:
+            if len(val_event) > 0:
                 max_val = max(val_event)
                 hists["maxE"].Fill(max_val * 1e3)
                 hists["maxQ"].Fill(max_val * 1e3 * EtoQ)
